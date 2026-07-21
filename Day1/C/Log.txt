@@ -1,0 +1,17 @@
+Time:
+First time with -O0 flag: 2104.000000 ms
+Seconde time with -O1 flag: 630.000000 ms
+Third time with -O2 flag: 625.000000 ms (Production Standard/ Most Optimized)
+Fourth time with -O3 flag: 624.000000 ms
+
+
+Assembly Diff:
+First time for -O0 flag to Assembly using objdump: objdump -d -M intel s0.exe > s0.asm
+Seconde time for -O3 flag to Assembly using objdump: objdump -d -M intel s0.exe > s3.asm
+diff: fc.exe /n /c /w s0.asm s3.asm > diff.txt
+
+Compilation stages:
+1. Prepocessing: gcc -E .\StringRoutine.c -o StringRoutine.i
+2. Compilation: gcc -S .\StringRoutine.c -o StringRoutine.s (asm, unoptimized by default)
+3. Assembly: gcc -c .\StringRoutine.c -o StringRoutine.o (object file, machine code)
+4. Linking: gcc .\StringRoutine.c -o StringRountine (Gives executable after Linking)(Does all the previos steps silently)

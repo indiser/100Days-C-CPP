@@ -1,0 +1,16 @@
+Time:
+First time with -O0 flag: non-template: 3352.25 ms, template:     3677.81 ms
+Seconde time with -O1 flag: non-template: 690.572 ms, template:     780.25 ms
+Third time with -O2 flag: non-template: 660.999 ms, template:     653.046 ms (Production Standard/ Most Optimized)
+Fourth time with -O3 flag: non-template: 669.589 ms, template:     660.676 ms
+
+Assembly Diff:
+First time for -O0 flag to Assembly using objdump: objdump -d -M intel cs0.exe > cs0.asm
+Seconde time for -O3 flag to Assembly using objdump: objdump -d -M intel cs3.exe > cs3.asm
+diff: fc.exe /n /c /w .\cs0.asm .\cs3.asm > diff.txt
+
+Compilation stages:
+1. Prepocessing: g++ -E .\StringRoutine.cpp -o StringRoutine.i
+2. Compilation: g++ -S .\StringRoutine.cpp -o StringRoutine.s (asm, unoptimized by default)
+3. Assembly: g++ -c .\StringRoutine.cpp -o StringRoutine.o (object file, machine code)
+4. Linking: g++ .\StringRoutine.cpp -o StringRountine (Gives executable after Linking)(Does all the previos steps silently)
