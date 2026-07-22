@@ -1,0 +1,1 @@
+Since C doesnt allow function over loading. We use the keyword '_Generic' fo manual name mangling to be able to do function overloading. In cpp compiler it happens automatically.

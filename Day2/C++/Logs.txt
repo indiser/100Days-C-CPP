@@ -1,0 +1,5 @@
+First:
+I saw assert and static assert function. assert checks any condition failure in run time. static_assert checks any condition faliure in compile time
+
+Second:
+I saw concepts and requires. templates accepts anythings. Conecpts and requires make sure that templates only accept the correct things.
