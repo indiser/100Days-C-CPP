@@ -1,0 +1,70 @@
+perf stat ./matmul.exe naive:
+
+mode=naive time=4.8528s checksum=17179822098.0
+
+ Performance counter stats for './matmul.exe naive':
+
+              7.08 msec task-clock                       #    0.001 CPUs utilized             
+                19      context-switches                 #    2.685 K/sec                     
+                 2      cpu-migrations                   #  282.593 /sec                      
+                71      page-faults                      #   10.032 K/sec                     
+           9948341      cycles                           #    1.406 GHz                       
+           1401666      stalled-cycles-frontend          #   14.09% frontend cycles idle      
+           1545656      stalled-cycles-backend           #   15.54% backend cycles idle       
+           3177266      instructions                     #    0.32  insn per cycle            
+                                                  #    0.49  stalled cycles per insn   
+            786926      branches                         #  111.190 M/sec                     
+            110276      branch-misses                    #   14.01% of all branches           
+
+       5.026577024 seconds time elapsed
+
+       0.000000000 seconds user
+       0.008951000 seconds sys
+
+
+perf stat ./matmul.exe reordered:
+
+mode=reordered time=0.8287s checksum=17179822098.0
+
+ Performance counter stats for './matmul.exe reordered':
+
+              8.57 msec task-clock                       #    0.008 CPUs utilized             
+                21      context-switches                 #    2.451 K/sec                     
+                 0      cpu-migrations                   #    0.000 /sec                      
+                72      page-faults                      #    8.404 K/sec                     
+          14038183      cycles                           #    1.639 GHz                       
+           1795512      stalled-cycles-frontend          #   12.79% frontend cycles idle      
+            893157      stalled-cycles-backend           #    6.36% backend cycles idle       
+           3223803      instructions                     #    0.23  insn per cycle            
+                                                  #    0.56  stalled cycles per insn   
+            797576      branches                         #   93.095 M/sec                     
+            115120      branch-misses                    #   14.43% of all branches           
+
+       1.045122027 seconds time elapsed
+
+       0.000000000 seconds user
+       0.009221000 seconds sys
+
+
+perf stat ./matmul.exe tiled:
+
+mode=tiled time=0.4724s checksum=17179822098.0
+
+ Performance counter stats for './matmul.exe tiled':
+
+              6.10 msec task-clock                       #    0.010 CPUs utilized             
+                20      context-switches                 #    3.277 K/sec                     
+                 0      cpu-migrations                   #    0.000 /sec                      
+                72      page-faults                      #   11.797 K/sec                     
+           8856995      cycles                           #    1.451 GHz                       
+           1155219      stalled-cycles-frontend          #   13.04% frontend cycles idle      
+           1473582      stalled-cycles-backend           #   16.64% backend cycles idle       
+           3190571      instructions                     #    0.36  insn per cycle            
+                                                  #    0.46  stalled cycles per insn   
+            791247      branches                         #  129.648 M/sec                     
+            109012      branch-misses                    #   13.78% of all branches           
+
+       0.603793536 seconds time elapsed
+
+       0.000000000 seconds user
+       0.006823000 seconds sys
