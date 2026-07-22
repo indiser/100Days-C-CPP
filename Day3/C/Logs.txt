@@ -1,0 +1,21 @@
+I didnt understand most of the part of CMAKE at all. I just generated it using gemini. Well what i learned was cmake is hard as fuck. I should never touch it for sake of my sanity. But still i have to use it anyways.
+
+
+Cmake generated many files like .dll, .dll.a, .a etc. But it gave me two exe files
+
+app_shared.exe:
+    $ ldd app_shared.exe
+        ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7fffdb580000)
+        KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7fffdae70000)
+        KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7fffd87a0000)
+        ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7fffd8e80000)
+        libmath_functions_shared.dll => /c/Users/myname/OneDrive/Desktop/100Days-C-Cpp/Day3/C/build/libmath_functions_shared.dll (0x7fffce350000)
+
+app_static.exe:
+    $ ldd app_static.exe
+        ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7fffdb580000)
+        KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7fffdae70000)
+        KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7fffd87a0000)
+        ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7fffd8e80000)
+
+Nothing broke. What i have shipped is a basic calc

@@ -1,0 +1,22 @@
+app_shared.exe:
+    $ ldd app_shared.exe
+        ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7fffdb580000)
+        KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7fffdae70000)
+        KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7fffd87a0000)
+        ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7fffd8e80000)
+        libmath_shared.dll => /c/Users/myname/OneDrive/Desktop/100Days-C-Cpp/Day3/C++/build/libmath_shared.dll (0x7fffce2d0000)
+        libstdc++-6.dll => /ucrt64/bin/libstdc++-6.dll (0x7fff85b60000)
+        libgcc_s_seh-1.dll => /ucrt64/bin/libgcc_s_seh-1.dll (0x7fffca790000)
+        libwinpthread-1.dll => /ucrt64/bin/libwinpthread-1.dll (0x7fffca740000)
+
+app_static.exe:
+    $ ldd app_static.exe
+        ntdll.dll => /c/WINDOWS/SYSTEM32/ntdll.dll (0x7fffdb580000)
+        KERNEL32.DLL => /c/WINDOWS/System32/KERNEL32.DLL (0x7fffdae70000)
+        KERNELBASE.dll => /c/WINDOWS/System32/KERNELBASE.dll (0x7fffd87a0000)
+        ucrtbase.dll => /c/WINDOWS/System32/ucrtbase.dll (0x7fffd8e80000)
+        libstdc++-6.dll => /ucrt64/bin/libstdc++-6.dll (0x7fff85b60000)
+        libgcc_s_seh-1.dll => /ucrt64/bin/libgcc_s_seh-1.dll (0x7fffca790000)
+        libwinpthread-1.dll => /ucrt64/bin/libwinpthread-1.dll (0x7fffce2d0000)
+
+Nothing broke. What i have shipped is a basic calc
