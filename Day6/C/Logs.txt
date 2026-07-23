@@ -5,3 +5,4 @@ Arena Allocators: it allocates memeory in a buffer arena, if we want to free mem
 I tried running sys/mman.h on windows it didint work so i had to use virtualallocator from windows.h.
 
 Famous artical link: https://www.dgtlgrove.com/p/untangling-lifetimes-the-arena-allocator
+Youtube Video: https://www.youtube.com/watch?v=5uuTS1xN0X0&t=213s
