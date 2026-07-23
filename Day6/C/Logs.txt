@@ -1,0 +1,7 @@
+Today is learned about Arena allocators, mmap, sbrk, brk to replace malloc.
+
+Arena Allocators: it allocates memeory in a buffer arena, if we want to free memery at any point we have to free it all together. That is why there is no chnace of memory leak ever. In my opinion its more like a linked list.
+
+I tried running sys/mman.h on windows it didint work so i had to use virtualallocator from windows.h.
+
+Famous artical link: https://www.dgtlgrove.com/p/untangling-lifetimes-the-arena-allocator
