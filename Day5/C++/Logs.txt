@@ -1,0 +1,42 @@
+MSYS2 Clang lacks libFuzzer runtime (-fsanitize=fuzzer). Had to use WSL Linux:
+
+clang++ -std=c++20 -g -fsanitize=fuzzer,address,undefined fuzz_target.cpp -o fuzz_cpp
+./fuzz_cpp
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1334118908
+INFO: Loaded 1 modules   (165 inline 8-bit counters): 165 [0x62e51548f678, 0x62e51548f71d), 
+INFO: Loaded 1 PC tables (165 PCs): 165 [0x62e51548f720,0x62e515490170), 
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 4096 bytes
+INFO: A corpus is not provided, starting from an empty corpus
+#2      INITED cov: 37 ft: 38 corp: 1/1b exec/s: 0 rss: 31Mb
+        NEW_FUNC[1/1]: 3
+0x62e515445020 in std::span<unsigned char const, 18446744073709551615ul>::operator[](unsigned long) const /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/span:287
+#6      NEW    cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 0 rss: 32Mb L: 3/3 MS: 4 ChangeByte-ChangeBit-CopyPart-CrossOver-
+#8      pulse  cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 0 rss: 32Mb
+#16     pulse  cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 0 rss: 32Mb
+#32     pulse  cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 0 rss: 32Mb
+#64     pulse  cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 0 rss: 32Mb
+#128    pulse  cov: 46 ft: 52 corp: 2/4b lim: 4 exec/s: 1 rss: 32Mb
+#256    pulse  cov: 46 ft: 52 corp: 2/4b lim: 6 exec/s: 2 rss: 32Mb
+        NEW_FUNC[1/10]: 0x62e515445230 in std::span<unsigned char const, 18446744073709551615ul>::subspan(unsigned long, unsigned long) const /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/span:422
+        NEW_FUNC[2/10]: 0x62e5154455e0 in std::optional<PacketCPP>::optional<PacketCPP, true>(PacketCPP&&) /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/optional:751
+#285    NEW    cov: 92 ft: 110 corp: 3/8b lim: 6 exec/s: 3 rss: 32Mb L: 4/4 MS: 4 ChangeByte-ChangeBit-InsertByte-ChangeBinInt-
+#462    REDUCE cov: 92 ft: 110 corp: 3/7b lim: 6 exec/s: 5 rss: 32Mb L: 3/3 MS: 2 CrossOver-EraseBytes-
+#512    pulse  cov: 92 ft: 110 corp: 3/7b lim: 6 exec/s: 5 rss: 32Mb
+#1024   pulse  cov: 92 ft: 110 corp: 3/7b lim: 11 exec/s: 11 rss: 33Mb
+#2048   pulse  cov: 92 ft: 110 corp: 3/7b lim: 21 exec/s: 22 rss: 33Mb
+#4096   pulse  cov: 92 ft: 110 corp: 3/7b lim: 38 exec/s: 45 rss: 34Mb
+#8192   pulse  cov: 92 ft: 110 corp: 3/7b lim: 80 exec/s: 90 rss: 34Mb
+#16384  pulse  cov: 92 ft: 110 corp: 3/7b lim: 163 exec/s: 180 rss: 35Mb
+#32768  pulse  cov: 92 ft: 110 corp: 3/7b lim: 325 exec/s: 360 rss: 36Mb
+#65536  pulse  cov: 92 ft: 110 corp: 3/7b lim: 652 exec/s: 720 rss: 39Mb
+#131072 pulse  cov: 92 ft: 110 corp: 3/7b lim: 1300 exec/s: 1440 rss: 44Mb
+#262144 pulse  cov: 92 ft: 110 corp: 3/7b lim: 2600 exec/s: 2849 rss: 54Mb
+#524288 pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 5637 rss: 73Mb
+#1048576        pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 11155 rss: 112Mb
+#2097152        pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 21620 rss: 190Mb
+#4194304        pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 41120 rss: 346Mb
+#8388608        pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 72315 rss: 606Mb
+#16777216       pulse  cov: 92 ft: 110 corp: 3/7b lim: 4096 exec/s: 118987 rss: 608Mb
+
+C++ std::span provides bounds checking via subspan(), avoiding pointer arithmetic bugs.
