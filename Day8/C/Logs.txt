@@ -1,0 +1,5 @@
+Today i learned a better way to do file oprations. Using virtual memories. The file is stored in virtual space then i do operations on it.
+
+Since i didnt have linux 'mmap' i did it using windows api.
+
+I ran good version and bad version on shakespears 'All's End That Ends Well' play and the shared memory script outperformed the normal one by a significant amount of time.
