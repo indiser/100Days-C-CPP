@@ -1,0 +1,5 @@
+Today i learned about strict memory aligment, padding, false shareing using concurency.
+
+I tried to use alignas(64) in c but it didn't work with struct. SO i used __attribute__((aligned(64)))
+
+All in all alignment is neecesary if we dont want to waste memory which is neecesary in high performance trading engines.

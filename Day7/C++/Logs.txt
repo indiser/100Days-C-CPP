@@ -1,0 +1,4 @@
+Today i learned about strict memory aligment, padding, false shareing using concurency.
+
+
+All in all alignment is neecesary if we dont want to waste memory which is neecesary in high performance trading engines.
