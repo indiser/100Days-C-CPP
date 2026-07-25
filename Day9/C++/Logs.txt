@@ -1,0 +1,7 @@
+Today i learned about "Buddy Memory Allocation Algorithm":
+
+Fundamentally it just keep on cutting the memory in equal halves. And when the menry is requested it gives out the less wastage memory block. It has its flaws but it has many advantages too. It is mostly used in kernal and OS.
+
+I also learned Freelists, bitwise power of 2 operartions etc.
+
+There is no good c++ examples on the internet but ai always comes in clutch.

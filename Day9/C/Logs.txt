@@ -1,0 +1,5 @@
+Today i learned about "Buddy Memory Allocation Algorithm":
+
+Fundamentally it just keep on cutting the memory in equal halves. And when the menry is requested it gives out the less wastage memory block. It has its flaws but it has many advantages too. It is mostly used in kernal and OS.
+
+I couldn't find any suitable code examples for this in c. But ai always comes a bit handy in these situations.
