@@ -1,0 +1,36 @@
+Today i learned about aos(array of structures) vs soa(structure of arrays) for data design concepts.
+What i leanred is that soa has less cache misses then aos. So using soa is better than aos in lot of the time.
+aos wastes memeory. Soa is an array so minimal memory wastage.
+
+perf stat -e cache-misses ./aos.exe:
+
+sum: 3299486466048.00
+time: 4800700.00 ns (4.5783 ns/particle)
+
+ Performance counter stats for './aos.exe':
+
+            152327      cache-misses                                                          
+
+       0.208059471 seconds time elapsed
+
+       0.000000000 seconds user
+       0.012626000 seconds sys
+
+
+perf stat -e cache-misses ./soa.exe:
+
+sum: 3299486466048.00
+time: 2790600.00 ns (2.6613 ns/particle)
+
+ Performance counter stats for './soa.exe':
+
+            143289      cache-misses                                                          
+
+       0.197433869 seconds time elapsed
+
+       0.000000000 seconds user
+       0.008582000 seconds sys
+
+I didn't use native linux but wsl so thats why the difference is not as massive as it is clamied to be.
+
+All in all it was worth it.
