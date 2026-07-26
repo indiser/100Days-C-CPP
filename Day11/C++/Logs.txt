@@ -1,0 +1,8 @@
+Today i learned about Lock free data structues and how they are different from mutex, CAS(Compare and Swap), ABA problem and solution, Memory ordering.
+
+I implemented Single Producer Single Consumer and Multiple Producer Multiple Consumer program using atomicity and memory ordering.
+
+Today i was told to turn to wsl for TSan test since it is not supported on windows. But i juts did a simple MPMC stress test.
+There is no decent tutorial on the internet at all.
+
+All in all i never wnat to look at this concept ever again. Boy was it hard or what. I almost used up my entire day.
