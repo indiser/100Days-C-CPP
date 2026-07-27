@@ -1,0 +1,5 @@
+Smart pointres are inbuilt and mostly a part od c++. I found great videos on those topics. I learned unique_ptr, shread_ptr, weak_ptr, lvalue, rvalue, move_semantics, pointers and references today.
+
+Nothing really broke since it was all pretty standard.
+
+Was a great day.

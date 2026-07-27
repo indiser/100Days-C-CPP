@@ -1,0 +1,5 @@
+Smart pointres are inbuilt and mostly a part od c++. I found great videos on those topics. I learned unique_ptr, shread_ptr, weak_ptr, lvalue, rvalue, move_semantics, pointers and references today.
+
+Since smart pointers is not really a part of c i just had to create a type of shared_ptr using updating its refernece count. Pretty straight forward.
+
+Was a great day.
