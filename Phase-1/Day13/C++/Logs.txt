@@ -1,0 +1,5 @@
+I learned about big/little endian, struct packing, binary serialization, FIX protocol, bit manipulation.
+
+
+I learned the importance of how two computers might talk if one is big endian we have to convert to big endian etc...
+It was basically conversion today.

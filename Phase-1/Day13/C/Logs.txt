@@ -1,0 +1,6 @@
+I learned about big/little endian, struct packing, binary serialization, FIX protocol, bit manipulation.
+
+It is harder than it looks first i saw an example of endian using <netinet/in.h>. But that was for linux for windows its <winsock32.h>.
+
+I learned the importance of how two computers might talk if one is big endian we have to convert to big endian etc...
+It was basically conversion today.
