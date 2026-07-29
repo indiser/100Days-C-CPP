@@ -1,0 +1,5 @@
+Yesterday i learned about endianess but today i learned about the importance of padding aligment. It is very very important for images.
+
+Today i mainly learned about fread, fseek, fclose and byte manupulation of an image.
+
+All was good.
