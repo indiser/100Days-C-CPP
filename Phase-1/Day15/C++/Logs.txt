@@ -1,0 +1,5 @@
+Today i learned about how to control signals in kernal, Learned signal vs sigaction, backtrace, async_safety, how to handle processes etc.
+
+It couldnt have been done on windows so i shifted to wsl
+
+All in all it was a productive day.
