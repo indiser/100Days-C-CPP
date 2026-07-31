@@ -1,0 +1,1 @@
+Today i learned all about string interning. Is is better than strcmp for copying string. I just checks the memeory adderess so instead of O(N) time compleixty it just takes O(1) via pointer matching. Which also saves memory ad time.

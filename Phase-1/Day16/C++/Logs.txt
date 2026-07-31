@@ -1,0 +1,3 @@
+Today is learned about string interning in c and cow strings in cpp.(Copy on Write). Although the use of this techique has been banned since newer version of cpp. 
+
+Copying string takes $O(1)$ time. Just bumps ref_count integer, no heap allocation, no string clone.
