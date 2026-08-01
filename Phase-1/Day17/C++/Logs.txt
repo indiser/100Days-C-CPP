@@ -1,0 +1,8 @@
+Today i learned about memory interception and leak detection. 
+
+Hooking allocations: Dynamic symbol interposition (dlsym/RTLD_NEXT in C) vs global operator overloading (operator new/delete in C++).  
+Macro redirection: Override standard functions at compile time (#define malloc trick).
+Recursion guard: Prevent infinite loops when tracker itself allocates memory (thread_local guards).
+Metadata tracking: Capture size, address, and source line (__FILE__, __LINE__) to detect active memory leaks, double frees, and array/single delete mismatches.
+
+Today couldn't be completed on windows so i used wsl

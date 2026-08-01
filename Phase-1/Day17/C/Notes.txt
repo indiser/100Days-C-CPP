@@ -1,0 +1,142 @@
+
+
+Symbol interposition is a powerful technique where a custom function overrides an identically named function in a shared library without modifying or recompiling the target application. This mechanism relies entirely on the behavior of the dynamic linker/loader (ld.so) during runtime symbol resolution.
+
+LD_PRELOAD: 
+An environment variable that forces the dynamic linker to load specified shared libraries before any other dependencies, including the standard C library (libc). Because the linker searches libraries sequentially, symbols in the preloaded library take precedence and hijack subsequent matching calls.
+
+RTLD_NEXT: 
+A pseudo-handle used exclusively with dlsym. It instructs the dynamic linker to find the next occurrence of a symbol in the search hierarchy, skipping the current library. This allows your wrapper to locate and invoke the original, unmodified function
+
+dlsym: 
+A standard library function that looks up the memory address of a symbol (function or variable) by its string name at runtime.
+
+
+Macro-based function redirection uses the C preprocessor (#define) to replace a function name with an alternative expression or function name before the compiler compiles the code.
+
+
+__attribute__((weak)) — Link-Time Interposition
+The weak attribute allows you to declare or define a symbol (function or variable) that can be overridden at link-time by a "strong" symbol of the same name without causing a duplicate symbol error
+
+
+__builtin_return_address(LEVEL) — Stack Inspection
+__builtin_return_address is a compiler intrinsic that allows a function to peek at the stack frame and retrieve the memory address of the instruction it will return to.Arguments0: Returns the return address of the current function (i.e., who called me?).1: Returns the return address of the parent function (i.e., who called my caller?).2+: Walks further up the call stack. (Values greater than 0 are highly unsafe and prone to crashing if the stack frame layout is optimized away).
+
+
+When writing custom memory allocation trackers (whether via LD_PRELOAD, macro redirection, or global operator new), the biggest threat to stability is infinite recursion.If your tracking logic inside malloc or operator new triggers another dynamic allocation (e.g., via std::printf, std::string, thread creation, or map insertions), the tracker will intercept its own internal call. This causes immediate stack overflow and a segmentation fault.To prevent this, you must implement a reentrancy guard. Here are the industry-standard architectural techniques to build one safely.
+
+Technique 1: Thread-Local Storage (TLS) Flag Guard
+The most reliable and versatile method uses a thread_local (C++11) or __thread (C) boolean flag. This ensures that memory tracking is disabled only for the current thread during the tracking payload execution, while other concurrent threads continue to be profiled safely.
+
+Technique 2: The RAII Guard (Scope-Based)
+In C++, managing raw boolean flags manually is risky. If an exception is thrown or a early return occurs inside your tracking logic, the flag might remain set to true, permanently disabling tracking for that thread. Use an RAII (Resource Acquisition Is Initialization) struct to guarantee cleanup.
+
+Technique 3: Static Bootstrap Buffers for dlsym
+When tracking via LD_PRELOAD and dlsym, you run into a unique bootstrap paradox: calling dlsym(RTLD_NEXT, "malloc") internally invokes calloc, which routes right back to your hook before dlsym can even finish initializing the real pointer.To break this loop, fulfill early bootstrap requests using a small, pre-allocated static byte array.
+
+
+Architectural Alternatives: Complete Zero-Allocation Tracking
+If you want to achieve maximum performance and remove reentrancy guard logic entirely, configure your tracking payload to be completely allocation-free:
+Use Raw System Calls: Write log outputs directly via write(1, ...) or syscall(__NR_write, ...) rather than using printf or std::cout.
+Fixed-Size Storage arrays: Store allocation data profiles inside thread-safe lock-free ring buffers or global fixed-capacity std::array instances initialized at startup, completely eliminating the need for std::vector or std::map
+
+
+When tracking dynamic memory, storing allocation metadata (such as the pointer address, allocation size, and call-stack context) requires structures that operate flawlessly inside memory hooks.If your tracking registry allocates memory itself, it triggers infinite recursion. Therefore, you must use data structures with zero dynamic heap allocation overhead.Here is how to implement allocation metadata registration using both static arrays and custom heap-free hash tables.
+
+Technique 1: Fixed-Capacity Static ArrayA static array initialized at compile-time is the simplest and safest data store. It guarantees zero memory allocations and excellent cache locality.Implementation PatternThis implementation uses a flat array alongside an atomic index for high-performance, thread-safe linear tracking.cpp#include <atomic>
+#include <cstddef>
+#include <new>
+
+// Structured metadata storage block
+struct AllocationRecord {
+    void* address;
+    std::size_t size;
+};
+
+// Fixed-capacity pool configured at compile-time (Zero heap allocation overhead)
+constexpr std::size_t MAX_RECORDS = 100'000;
+static AllocationRecord global_registry[MAX_RECORDS];
+static std::atomic<std::size_t> record_count{0};
+
+void register_allocation(void* ptr, std::size_t sz) {
+    if (!ptr) return;
+
+    // Secure an array index atomically
+    std::size_t index = record_count.fetch_add(1, std::memory_order_relaxed);
+    
+    if (index >= MAX_RECORDS) {
+        // Handle pool exhaustion safely without throwing or allocating
+        return; 
+    }
+
+    global_registry[index] = { ptr, sz };
+}
+Use code with caution.Pros: Constant time O(1) insertions; immune to heap deadlock.Cons: Searching for a specific pointer to update or delete requires a slow linear scan O(N).Technique 2: Zero-Allocation Open-Addressed Hash TableTo look up, modify, or erase metadata records quickly when delete or free is called, you need a hash table. Standard containers like std::unordered_map cannot be used because they allocate node blocks dynamically.Instead, construct a flat, open-addressed hash table with a fixed slot capacity that resolves collisions using linear probing.Implementation Patterncpp#include <cstddef>
+#include <cstdint>
+#include <atomic>
+#include <mutex>
+
+struct HashEntry {
+    void* key_address; // Act as the lookup key (NULL implies empty slot)
+    std::size_t size;
+};
+
+class ZeroAllocMap {
+private:
+    static constexpr std::size_t TABLE_CAPACITY = 262'144; // Must be power of 2
+    HashEntry table[TABLE_CAPACITY] = {};
+    std::mutex table_lock; // Simple lock for thread-safety
+
+    // Fast multiplicative MurmurHash mix for pointers
+    std::size_t hash_ptr(void* ptr) const {
+        std::uintptr_t val = reinterpret_cast<std::uintptr_t>(ptr);
+        val ^= val >> 16;
+        val *= 0x85ebca6b;
+        val ^= val >> 13;
+        val *= 0xc2b2ae35;
+        val ^= val >> 16;
+        return val & (TABLE_CAPACITY - 1); // Power of 2 bitwise modulo
+    }
+
+public:
+    void insert(void* ptr, std::size_t sz) {
+        if (!ptr) return;
+        
+        std::lock_guard<std::mutex> lock(table_lock);
+        std::size_t slot = hash_ptr(ptr);
+
+        // Linear probing loop to find an open slot
+        while (table[slot].key_address != nullptr) {
+            if (table[slot].key_address == ptr) {
+                table[slot].size = sz; // Update existing entry
+                return;
+            }
+            slot = (slot + 1) & (TABLE_CAPACITY - 1); // Wrap around index safely
+        }
+
+        table[slot] = { ptr, sz };
+    }
+
+    std::size_t erase(void* ptr) {
+        if (!ptr) return 0;
+
+        std::lock_guard<std::mutex> lock(table_lock);
+        std::size_t slot = hash_ptr(ptr);
+
+        while (table[slot].key_address != nullptr) {
+            if (table[slot].key_address == ptr) {
+                std::size_t freed_size = table[slot].size;
+                table[slot] = { nullptr, 0 }; // Clear slot
+                
+                // Note: Linear probing requires rehashing subsequent contiguous slots 
+                // to prevent breaking lookup chains. Simplified here for brevity.
+                return freed_size;
+            }
+            slot = (slot + 1) & (TABLE_CAPACITY - 1);
+        }
+        return 0; // Pointer not tracked
+    }
+};
+
+static ZeroAllocMap metadata_registry;
+Use code with caution.Critical Synchronization & Memory Order ChoicesWhen integrating metadata registries directly inside custom global operator new / operator delete routines, synchronization performance dictates overall system stability.Avoid Heavy Global Mutexes on High-Core Systems: A single global std::mutex across all memory hooks creates massive lock contention, bottlenecking multithreaded applications.Thread-Local Staging Buffers: For large systems, avoid a central lock entirely during the allocation path. Let each thread store metadata in a fixed-size thread_local array cache. Flush these local arrays to a global data collection ring buffer only when they fill up or when the thread exits.Atomic Load/Store Ordering: When designing lock-free arrays, avoid heavy sequentially consistent operations (std::memory_order_seq_cst) if they are unnecessary. Use std::memory_order_relaxed for updating array indices, combined with std::memory_order_release when publishing pointer records to reading threads.
