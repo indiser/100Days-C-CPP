@@ -1,0 +1,3 @@
+Today i learned about placement. And how its important for Game dev.
+
+Byte array arena owns memory, not malloc.
