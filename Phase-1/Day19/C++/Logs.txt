@@ -1,0 +1,5 @@
+Today i learned about std::varient and std::visit in c++.
+
+Basically theya are like type safe unions and switch case for varient.
+
+Today was a success like always.
