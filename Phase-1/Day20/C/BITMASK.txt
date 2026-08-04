@@ -1,0 +1,8 @@
+Bit Shift and Mask Operations
+1. Left Shift (<<): Multiply by powers of two. Shift bits left, fill right with zeros.
+2. Right Shift (>>): Divide by powers of two. Logical (zeros) for unsigned; arithmetic (sign bit fill) for signed.
+3. Bitwise AND (&): Extraction. Mask out unwanted bits (value & MASK).
+4. Bitwise OR (|): Insertion. Set specific bits without altering others (value | MASK).
+5. Bitwise XOR (^): Toggle specific bits.
+6. Bitwise NOT (~): Invert all bits.
+7. Mask creation: (1U << N) - 1 creates $N$-bit mask. Shift mask left to offset position: (MASK << OFFSET).

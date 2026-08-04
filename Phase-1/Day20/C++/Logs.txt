@@ -1,0 +1,5 @@
+Today i learned about bit manupulation, bit masking, bitwise operations etc. Today was a bit of a day.
+
+Nothing broke since bits can be run on windows and linux.
+
+All in all it was bit of a day.
