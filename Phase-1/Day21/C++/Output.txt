@@ -1,0 +1,27 @@
+valgrind --leak-check=full ./sso_string
+==488== Memcheck, a memory error detector
+==488== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==488== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==488== Command: ./sso_string
+==488== 
+sizeof(SSOString): 32 bytes
+[PASS] Stack Init & RAII
+[PASS] Stack Append
+[PASS] Stack to Heap Transition
+[PASS] Move Semantics
+[PASS] Test 5: Stack copy & mutate isolation
+[PASS] Test 6: Heap deep copy & capacity headroom preservation
+[PASS] Test 7: Double heap assignment leak prevention
+[PASS] Test 8: Boundary Exact Limit (15 Stack -> 16 Heap)
+[PASS] Test 9: Self-move guard verification
+
+ALL C++ SSO TESTS PASSED PERFECTLY!
+==488== 
+==488== HEAP SUMMARY:
+==488==     in use at exit: 0 bytes in 0 blocks
+==488==   total heap usage: 10 allocs, 10 frees, 75,136 bytes allocated
+==488== 
+==488== All heap blocks were freed -- no leaks are possible
+==488== 
+==488== For lists of detected and suppressed errors, rerun with: -s
+==488== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

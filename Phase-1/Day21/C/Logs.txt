@@ -1,0 +1,5 @@
+Today i learned about Short String Optimization (SSO). Which is built-in functionality in c++ std::string basic_string.h. But not in C.
+
+In simple terms if the string is short allocate it in stack or heap allocation as is gets bigger.
+
+Daay 21 was a success.
