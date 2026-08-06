@@ -1,0 +1,17 @@
+Todays i leared why bitwise operator is better than modulo for power of 2. I learned about circular queue. I already knew lock free data structures. So it was easy.
+
+gcc -O2 -pthread -fsanitize=thread AudioBuffer.c -o AudioBuffer -lm
+./AudioBuffer
+FATAL: ThreadSanitizer: unexpected memory mapping 0x5c7b07fa1000-0x5c7b07fa2000
+
+To fix the error:
+setarch $(uname -m) -R ./AudioBuffer (Disable ASLR)
+
+Audio callback processed 88320 frames without lock/alloc
+
+gcc -O2 -pthread -fsanitize=address,undefined AudioBuffer.c -o AudioBuffer -lm
+setarch $(uname -m) -R ./AudioBuffer
+
+Audio callback processed 88320 frames without lock/alloc
+
+All in all it was good

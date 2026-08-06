@@ -1,0 +1,12 @@
+Todays i leared why bitwise operator is better than modulo for power of 2. I learned about circular queue. I already knew lock free data structures. So it was easy.
+
+g++ -O2 -pthread -fsanitize=thread AudioBuffer.cpp -o AudioBuffer -lm
+setarch $(uname -m) -R ./AudioBuffer
+C++ Audio callback processed 88320 frames without locks/allocs
+
+g++ -O2 -pthread -fsanitize=address,undefined AudioBuffer.cpp -o AudioBuffer -lm
+setarch $(uname -m) -R ./AudioBuffer
+
+C++ Audio callback processed 88320 frames without locks/allocs
+
+All in all it was good
