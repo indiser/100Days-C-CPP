@@ -1,0 +1,15 @@
+Today i learned about object pools and free lists to optimize its time.
+
+WithOut Freelist:
+real    1m21.548s
+user    1m22.546s
+sys     0m0.014s
+
+With FreeList:
+real    0m0.061s
+user    0m0.050s
+sys     0m0.014s
+
+To use time command line argument i had to shift to wsl
+
+All in all everything was on youtube. Jacob sorber.

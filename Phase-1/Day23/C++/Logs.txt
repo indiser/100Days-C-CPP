@@ -1,0 +1,6 @@
+Today i learned about object pools and free lists to optimize its time.
+
+
+To use time command line argument i had to shift to wsl
+
+All in all everything was on youtube. Jacob sorber.
