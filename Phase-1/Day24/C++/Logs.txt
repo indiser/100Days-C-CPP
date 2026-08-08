@@ -1,0 +1,6 @@
+Today i learned bout hash maps although i already kew about them very much. So today i just revised all the collision evasion techniques again.
+
+
+Nothing broke really.
+
+It was a good revision.
