@@ -1,0 +1,5 @@
+Today i learned about databases. Page based file storage, Page Cache Architecture and LRU eviction policy
+
+I couldnt run pread and pwrite in windows so i used wsl. I made the cmake file explicitely for wsl not windows.
+
+It was one heck of a day not gonna lie
