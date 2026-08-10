@@ -1,0 +1,5 @@
+Today i took a look at Zero copy parsing. That means not to use malloc, new or any heap allocation. Pure pointer arithmatic and type conversions.
+
+Data stream comes in big endian but computer had little endian so i had to convert it.
+
+It was really easy day.
