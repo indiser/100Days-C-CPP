@@ -1,0 +1,5 @@
+Today i learned about std::allocator_traits, std::allocators and all their components. I plugged them in my ArenaAllocator from day 6.
+
+I checked memory usage using valgrid in wsl.
+
+I never want to come back here again.
