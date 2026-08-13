@@ -1,0 +1,28 @@
+g++ -Wall -Wextra -std=c++20 -g -O0 -fsanitize=undefined,address -fno-sanitize-recover=all ub_cpp_catalog.cpp -o ub_cpp_debug
+=== C++ DEBUG (UBSan + ASan) ===
+./ub_cpp_debug 1
+[UB] reinterpret_cast aliasing result (Expected 0, Got 0)
+./ub_cpp_debug 2
+[UB] Union inactive read result: 0
+./ub_cpp_debug 3
+[Defined] memcpy result: 0 | bit_cast result: 0
+./ub_cpp_debug 4
+[UB] Constructing object with pure virtual call in ctor...
+pure virtual method called
+terminate called without an active exception
+make: [Makefile:28: run-debug] Aborted (core dumped) (ignored)
+
+
+g++ -Wall -Wextra -std=c++20 -O3 ub_cpp_catalog.cpp -o ub_cpp_release
+=== C++ RELEASE (-O3) ===
+./ub_cpp_release 1
+[UB] reinterpret_cast aliasing result (Expected 0, Got 100)
+./ub_cpp_release 2
+[UB] Union inactive read result: 0
+./ub_cpp_release 3
+[Defined] memcpy result: 0 | bit_cast result: 0
+./ub_cpp_release 4
+[UB] Constructing object with pure virtual call in ctor...
+pure virtual method called
+terminate called without an active exception
+make: [Makefile:35: run-release] Aborted (core dumped) (ignored)

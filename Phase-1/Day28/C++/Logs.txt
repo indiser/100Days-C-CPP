@@ -1,0 +1,5 @@
+Today i learned about UBSan and ASan, aliasing, shift past bits, null pointer dereference, singer integer overflow.
+
+It couldnt be done on windows so i used wsl
+
+Today was just day of errors.

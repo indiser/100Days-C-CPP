@@ -1,0 +1,33 @@
+gcc -Wall -Wextra -std=c11 -g -O0 -fsanitize=undefined,alignment -fno-sanitize-recover=all ub_catalog.c -o ub_debug
+=== RUNNING ALL DEBUG (UBSAN) CASES ===
+./ub_debug 1
+ub_catalog.c:9:9: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+make: [Makefile:25: run-debug] Error 1 (ignored)
+./ub_debug 2
+Strict aliasing breach (Expected 0, Got 0)
+./ub_debug 3
+ub_catalog.c:29:24: runtime error: shift exponent 35 is too large for 32-bit type 'unsigned int'
+make: [Makefile:27: run-debug] Error 1 (ignored)
+./ub_debug 4
+ub_catalog.c:35:5: runtime error: load of null pointer of type 'int'
+make: [Makefile:28: run-debug] Error 1 (ignored)
+./ub_debug 5
+ub_catalog.c:42:20: runtime error: store to misaligned address 0x7fffa290f641 for type 'int', which requires 4 byte alignment
+0x7fffa290f641: note: pointer points here
+ 7f 00 00  00 00 00 00 00 00 00 00  00 09 fd 4c eb 8b 94 14  80 f6 90 a2 ff 7f 00 00  dd 96 12 76 5f
+              ^ 
+make: [Makefile:29: run-debug] Error 1 (ignored)
+
+
+gcc -Wall -Wextra -std=c11 -O3 ub_catalog.c -o ub_release
+=== RUNNING ALL RELEASE (-O3) CASES ===
+./ub_release 1
+Signed overflow result: -2147483648
+./ub_release 2
+Strict aliasing breach (Expected 0, Got 100)
+./ub_release 3
+Shift out of bounds result: 0
+./ub_release 4
+make: [Makefile:36: run-release] Segmentation fault (core dumped) (ignored)
+./ub_release 5
+Unaligned access result: 42
