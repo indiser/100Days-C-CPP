@@ -1,0 +1,5 @@
+Today i build an LRU (Least Recently Used) cache.
+
+Nothing broke since i already built it from leetcode
+
+Phase 1 is done time to hit up phase 2.
