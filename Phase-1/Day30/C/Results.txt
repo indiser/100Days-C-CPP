@@ -1,0 +1,4 @@
+C Benchmark Results:
+  Total Ops:    2000000
+  Mean Latency: 19.11 ns/op
+  Throughput:   52.32 M ops/sec

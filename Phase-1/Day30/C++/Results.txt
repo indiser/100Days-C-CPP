@@ -1,0 +1,4 @@
+C++ Benchmark Results:
+  Total Ops:    2000000
+  Mean Latency: 208.37 ns/op
+  Throughput:   4.80 M ops/sec
