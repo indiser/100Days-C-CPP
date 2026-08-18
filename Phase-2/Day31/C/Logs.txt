@@ -1,0 +1,5 @@
+Today i learned about POSIX Threads (pthreads). 
+
+Surprisingly it worked on windows too so no wsl used today.
+
+I alreaady knew somethings about threading and concurrency so it was an easy day.
