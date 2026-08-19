@@ -1,0 +1,12 @@
+reader: saw 547441 distinct updates, torn=0
+candidate=100 updated=1 best=100
+candidate=250 updated=1 best=250
+candidate=90 updated=0 best=250
+candidate=300 updated=1 best=300
+candidate=300 updated=0 best=300
+candidate=500 updated=1 best=500
+
+ordering benchmark (20000000 iters):
+seq_cst:        77929719.08 ops/sec
+release/acquire: 78919497.38 ops/sec
+relaxed:        79365425.80 ops/sec

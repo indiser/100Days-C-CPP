@@ -1,0 +1,5 @@
+Today i learned about atomics, compare and exchange, memory ordering.
+
+Lock free data structures is hard.
+
+Day 32 has been done with now time to continue it tomorrow.
