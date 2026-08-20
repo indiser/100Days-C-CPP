@@ -1,0 +1,5 @@
+Today i learned about lockfree stack data structures. It is easier than the queue.
+
+Today it was wsl day.
+
+Time to wrap it up.
