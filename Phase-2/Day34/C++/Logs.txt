@@ -1,0 +1,5 @@
+Today i learned about mutex, conditional variables.
+
+I already knew the concepts so nothing broke.
+
+Day 34 is done time catch the drift tomorrow.
