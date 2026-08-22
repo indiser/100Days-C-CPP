@@ -1,0 +1,5 @@
+Today i learned about async I/O operations and socket programming, i used epoll and error and sockets everything.
+
+Since epoll is linux only. I had to use wsl
+
+It was the hardest day by far.
