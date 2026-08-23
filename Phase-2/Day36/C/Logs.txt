@@ -1,0 +1,5 @@
+Today i learned about context switching using ucontext.h POSIX library.
+
+It is only avalible on linux so i used wsl
+
+It was very hard but it is done.
