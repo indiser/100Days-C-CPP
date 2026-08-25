@@ -1,0 +1,5 @@
+Today i learned about Actor Model for concurrency.
+
+It was easy since i already knew about lock free queues.
+
+Day 37 is donesoooo.
