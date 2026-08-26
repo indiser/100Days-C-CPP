@@ -1,0 +1,5 @@
+Today i learned about Multithreaded Audio Pipeline using threads, mutex and conditional variables.
+
+It was ok
+
+Day 38 is overrrrrrrrrrrrrrrr
