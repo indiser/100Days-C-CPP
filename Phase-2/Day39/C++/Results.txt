@@ -1,0 +1,9 @@
+MutexLock:
+    Volume: 200000 (Expected 200000)
+    Quantity: 1000000 (Expected 1000000)
+    2.17563e+07 ns
+
+SpinLock:
+    Volume: 200000 (Expected 200000)
+    Quantity: 1000000 (Expected 1000000)
+    1.37233e+07 ns

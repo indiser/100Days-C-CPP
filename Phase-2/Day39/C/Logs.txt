@@ -1,0 +1,5 @@
+Today i learned about spin locks. Its similer to mutex. This i can call it as lock free mutex i guess.
+
+It all worked on windows nothing reall broke. Although in c i saw mutex outperforming spinlock.
+
+Day 39 has come to an end.

@@ -1,0 +1,9 @@
+MutexLock:
+    Final Volume (Expected 400000): 400000
+    Final Quantity (Expected 2000000): 2000000
+    Execution time: 0.02
+
+SpinLock:
+    Final Volume (Expected 400000): 400000
+    Final Quantity (Expected 2000000): 2000000
+    Execution time: 0.03

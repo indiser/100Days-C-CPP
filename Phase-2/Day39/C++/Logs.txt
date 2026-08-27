@@ -1,0 +1,5 @@
+Today i learned about spin locks. Its similer to mutex. This i can call it as lock free mutex i guess.
+
+It all worked on windows nothing reall broke. But in cpp i saw spinlock outperforming mutex.
+
+Day 39 has come to an end.
