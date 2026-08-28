@@ -1,0 +1,5 @@
+Today i learned Bankers Algorithm for deadlock detection in Operating System
+
+Nothing broke today.
+
+Day 40 is donesoo.
